@@ -21,3 +21,7 @@
 [submodule "meta-maker"]
 	path = meta-maker
 	url = http://git.yoctoproject.org/git/meta-maker
+[submodule "meta-rpi"]
+	path = meta-rpi
+	url = https://github.com/PandaSB/meta-rpi.git
+	branch = rocko
