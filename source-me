@@ -1,0 +1,18 @@
+#!/bin/bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd "$DIR"
+
+MACHINE="$1"
+
+
+BUILD_DIR="$DIR/build"
+
+if [ -z "$MACHINE" ]; then
+  echo "Machine name is missing" 1>&2
+  echo "Machines:" 1>&2
+
+else
+  #Create build environment
+  . "$DIR/poky/oe-init-build-env" "$BUILD_DIR" > /dev/null
+fi 
