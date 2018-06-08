@@ -29,12 +29,13 @@ BBLAYERS += \" \\
   $DIR/meta-security \\
   $DIR/meta-maker \\
   $DIR/meta-rpi \\
+  $DIR/meta-sb \\
   \"" >> "$BUILD_DIR/conf/bblayers.conf"
 
   echo '' >> "$BUILD_DIR/conf/local.conf"
   echo "# RPI
 LICENSE_FLAGS_WHITELIST = \"commercial\"
-DISTRO_FEATURES = \"ext2 pam opengl usbhost $DISTRO_FEATURES_LIBC\"
+DISTRO_FEATURES = \"ext2 pam opengl usbhost \${DISTRO_FEATURES_LIBC}\"
 DISTRO_FEATURES_BACKFILL_CONSIDERED += \"pulseaudio\"
 PREFERRED_PROVIDER_jpeg = \"libjpeg-turbo\"
 PREFERRED_PROVIDER_jpeg-native = \"libjpeg-turbo-native\"
@@ -65,5 +66,6 @@ INHERIT += \"rm_work\"
     echo "Run 'bitbake <target>'"
     echo "Images:"
     echo "$(find $DIR/meta-rpi/images/ -name *.bb  -type f -printf "%f\n" | cut -f 1 -d '.')"
+    echo "$(find $DIR/meta-sb/recipes-core/images/ -name *.bb  -type f -printf "%f\n" | cut -f 1 -d '.')"
 
 fi
