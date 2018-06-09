@@ -18,7 +18,7 @@ CORE_OS = " \
 WIFI_SUPPORT = " \
     crda \
     iw \
-    linux-firmware-bcm43430 \
+    firmware \
     wireless-tools \
     wpa-supplicant \
 "
@@ -82,6 +82,7 @@ MQTT = " \
 
 STREAMING = "\
     mjpg-streamer \
+    mjpg-script \
 "
 
 IMAGE_INSTALL += " \
@@ -105,11 +106,21 @@ disable_unused_services() {
     rm ${IMAGE_ROOTFS}/etc/rc5.d/S15mountnfs.sh
 }
 
+set_wifi() {
+  echo "ctrl_interface=/var/run/wpa_supplicant" > ${IMAGE_ROOTFS}/etc/wpa_supplicant.conf 
+  echo "ap_scan=1" >> ${IMAGE_ROOTFS}/etc/wpa_supplicant.conf
+  echo "network={"  >> ${IMAGE_ROOTFS}/etc/wpa_supplicant.conf
+  echo "    ssid=\"${WIFI_SSID}\"">> ${IMAGE_ROOTFS}/etc/wpa_supplicant.conf
+  echo "    psk=\"${WIFI_PASSWD}\"">> ${IMAGE_ROOTFS}/etc/wpa_supplicant.conf
+  echo "}" >> ${IMAGE_ROOTFS}/etc/wpa_supplicant.conf
+  sed -i -e "s/#auto wlan0/auto wlan0/g" ${IMAGE_ROOTFS}/etc/network/interfaces
+}
 
 ROOTFS_POSTPROCESS_COMMAND += " \
     set_local_timezone ; \
     disable_bootlogd ; \
     disable_unused_services ; \
+    set_wifi ; \
  "
 
 export IMAGE_BASENAME = "iot-camera-image"
