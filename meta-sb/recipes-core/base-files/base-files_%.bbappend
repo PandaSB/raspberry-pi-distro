@@ -24,7 +24,6 @@ do_install_append () {
 	install -m 0600 ${WORKDIR}/ssh_host_ed25519_key.pub ${D}/${sysconfdir}/ssh
 	install -m 0600 ${WORKDIR}/ssh_host_rsa_key ${D}/${sysconfdir}/ssh
 	install -m 0600 ${WORKDIR}/ssh_host_rsa_key.pub ${D}/${sysconfdir}/ssh
-	echo "tmpfs                /tmp                 tmpfs      defaults              0  0" >> ${D}/${sysconfdir}/fstab
 	echo "tmpfs                /var/log             tmpfs      defaults              0  0" >> ${D}/${sysconfdir}/fstab
 	echo "tmpfs                /var/run             tmpfs      mode=0755,nodev,nosuid,strictatime 0  0" >> ${D}/${sysconfdir}/fstab
 }

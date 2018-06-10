@@ -114,6 +114,8 @@ set_wifi() {
   echo "    psk=\"${WIFI_PASSWD}\"">> ${IMAGE_ROOTFS}/etc/wpa_supplicant.conf
   echo "}" >> ${IMAGE_ROOTFS}/etc/wpa_supplicant.conf
   sed -i -e "s/#auto wlan0/auto wlan0/g" ${IMAGE_ROOTFS}/etc/network/interfaces
+  sed -i -e "s/login=\"admin\"/login=\"${CAMERA_LOGIN}\"/g" ${IMAGE_ROOTFS}/etc/init.d/mjpg_streamer
+  sed -i -e "s/password=\"admin\"/password=\"${CAMERA_PASSWD}\"/g" ${IMAGE_ROOTFS}/etc/init.d/mjpg_streamer
 }
 
 ROOTFS_POSTPROCESS_COMMAND += " \
